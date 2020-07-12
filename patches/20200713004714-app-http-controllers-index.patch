@@ -1,0 +1,13 @@
+4a5
+> use App\Post;
+9c10,17
+<     //
+---
+>     /**
+>      * @return \Illuminate\Contracts\Support\Renderable
+>      */
+>     public function index()
+>     {
+>         $posts = Post::all();
+>         return view('index')->with('posts', $posts);
+>     }

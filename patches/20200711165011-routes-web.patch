@@ -1,0 +1,6 @@
+16,18c16
+< Route::get('/', function () {
+<     return view('welcome');
+< });
+---
+> Route::get('/', 'IndexController@index')->name('index');

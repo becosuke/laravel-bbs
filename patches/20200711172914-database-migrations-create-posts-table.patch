@@ -1,0 +1,4 @@
+17a18,20
+>             $table->string('title');
+>             $table->string('description');
+>             $table->string('image');

@@ -29,6 +29,9 @@ npm-build:
 
 build: npm-build
 
+seeder:
+	@php artisan db:seed --class=PostsTableSeeder
+
 up:
 	@php artisan serve
 
@@ -59,3 +62,44 @@ install-laravel-ui:
 finalize-install: npm-install init-env init-db build
 	@grep /database/database.sqlite .gitignore || echo /database/database.sqlite >> .gitignore
 	@echo CONGRATS ON v0.0.1
+
+v0.0.1:
+	@echo make generate-posts-migration
+
+generate-posts-migration: artisan-make-migration-create-posts
+	@patch $(shell find database/migrations -name '*_create_posts_table.php') patches/20200711172914-database-migrations-create-posts-table.patch
+	@php artisan migrate
+	@echo make generate-post-model
+
+artisan-make-migration-create-posts:
+	@php artisan make:migration create_posts_table --create=posts
+
+generate-post-model:
+	@php artisan make:model Post
+	@echo make generate-index-controller
+
+generate-index-controller:
+	@php artisan make:controller IndexController
+	@patch app/Http/Controllers/IndexController.php patches/20200713004714-app-http-controllers-index.patch
+	@echo make create-index-view
+
+create-index-view:
+	@cp resources/views/welcome.blade.php resources/views/index.blade.php
+	@patch resources/views/index.blade.php patches/20200713003445-resources-views-index.patch
+	@echo make patch-index-route
+
+patch-index-route:
+	@patch routes/web.php patches/20200711165011-routes-web.patch
+	@echo make generate-posts-seeder
+
+generate-posts-seeder:
+	@php artisan make:seeder PostsTableSeeder
+	@patch database/seeds/PostsTableSeeder.php patches/20200712024852-database-seeds-posts-table-seeder.patch
+	@php composer.phar dump-autoload
+	@php artisan db:seed --class=PostsTableSeeder
+	@echo make copy-thumbnail
+
+copy-thumbnail:
+	@mkdir -p public/img
+	@cp patches/20200714002354-public-img-thumbnail.svg public/img/thumbnail.svg
+	@echo CONGRATS ON v0.0.2

@@ -1,0 +1,18 @@
+3a4,5
+> use Illuminate\Support\Carbon;
+> use Illuminate\Support\Facades\DB;
+14c16,27
+<         //
+---
+>         $titles = ['海', 'バーベキュー', '映え映え'];
+> 
+>         $now = Carbon::now();
+>         foreach ($titles as $title) {
+>             DB::table('posts')->insert([
+>                 'title' => $title,
+>                 'description' => '',
+>                 'image' => '',
+>                 'created_at' => $now,
+>                 'updated_at' => $now,
+>             ]);
+>         }
