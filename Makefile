@@ -103,3 +103,24 @@ copy-thumbnail:
 	@mkdir -p public/img
 	@cp patches/20200714002354-public-img-thumbnail.svg public/img/thumbnail.svg
 	@echo CONGRATS ON v0.0.2
+
+v0.0.2:
+	@echo make generate-post-request
+
+generate-post-request:
+	@php artisan make:request CreatePost
+	@patch app/Http/Requests/CreatePost.php patches/20200713235743-app-http-requests-create-post.patch
+	@echo make generate-post-controller
+
+generate-post-controller:
+	@php artisan make:controller PostController
+	@patch app/Http/Controllers/PostController.php patches/20200713191842-app-http-controllers-post.patch
+	@echo make patch-index-view
+
+patch-index-view:
+	@patch resources/views/index.blade.php patches/20200713192831-resources-views-index.patch
+	@echo make patch-post-route
+
+patch-post-route:
+	@patch routes/web.php patches/20200713193215-routes-web.patch
+	@echo CONGRATS ON v0.0.3

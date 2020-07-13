@@ -1,0 +1,8 @@
+16c16
+<         return false;
+---
+>         return true;
+27c27
+<             //
+---
+>             'title' => 'required|max:24',

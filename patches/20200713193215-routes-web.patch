@@ -1,0 +1,2 @@
+16a17
+> Route::post('/post', 'PostController@create')->name('post.create');

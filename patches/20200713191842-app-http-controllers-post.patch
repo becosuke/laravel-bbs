@@ -1,0 +1,17 @@
+5c5,6
+< use Illuminate\Http\Request;
+---
+> use App\Http\Requests\CreatePost;
+> use App\Post;
+9c10,18
+<     //
+---
+>     public function create(CreatePost $request)
+>     {
+>         $post = new Post();
+>         $post->setAttribute('title', $request->get('title', ''));
+>         $post->setAttribute('description', '');
+>         $post->setAttribute('image', '');
+>         $post->save();
+>         return redirect()->route('index');
+>     }
