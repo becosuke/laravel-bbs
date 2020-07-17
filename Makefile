@@ -124,3 +124,28 @@ patch-index-view:
 patch-post-route:
 	@patch routes/web.php patches/20200713193215-routes-web.patch
 	@echo CONGRATS ON v0.0.3
+
+v0.0.3:
+	@echo make copy-consts-config
+
+copy-consts-config:
+	@mkdir -p config/consts
+	@cp patches/20200717161531-config-consts-defaults.php config/consts/defaults.php
+	@echo make patch-posts-seeder
+
+patch-posts-seeder: init-db
+	@patch database/seeds/PostsTableSeeder.php patches/20200717161729-database-seeds-posts-table-seeder.patch
+	@php artisan db:seed --class=PostsTableSeeder
+	@echo make patch-app-post
+
+patch-app-post:
+	@patch app/Post.php patches/20200717162800-app-post.patch
+	@echo make patch-index-controller
+
+patch-index-controller:
+	@patch app/Http/Controllers/IndexController.php patches/20200717163147-app-http-controllers-index-controller.patch
+	@echo make patch-index-view-paginate
+
+patch-index-view-paginate:
+	@patch resources/views/index.blade.php patches/20200717163600-resources-views-index.patch
+	@echo CONGRATS ON v0.0.4

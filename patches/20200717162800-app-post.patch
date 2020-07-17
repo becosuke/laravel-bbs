@@ -1,0 +1,19 @@
+5a6
+> use Illuminate\Support\Carbon;
+9c10,23
+<     //
+---
+>     protected $appends = ['created_at_diff'];
+> 
+>     /**
+>      * @return string
+>      */
+>     public function getCreatedAtDiffAttribute()
+>     {
+>         try {
+>             $created_at = new Carbon($this->getAttribute($this->getCreatedAtColumn()));
+>         } catch (\Exception $e) {
+>             $created_at = new Carbon();
+>         }
+>         return $created_at->diffForHumans();
+>     }

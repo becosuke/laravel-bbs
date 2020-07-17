@@ -1,0 +1,4 @@
+15c15
+<         $posts = Post::all();
+---
+>         $posts = Post::query()->orderByDesc('created_at')->paginate(config('consts.defaults.contents_per_page'));
