@@ -149,3 +149,30 @@ patch-index-controller:
 patch-index-view-paginate:
 	@patch resources/views/index.blade.php patches/20200717163600-resources-views-index.patch
 	@echo CONGRATS ON v0.0.4
+
+v0.0.4:
+	@echo make patch-consts-config
+
+patch-consts-config:
+	@patch config/consts/defaults.php patches/20200718175259-config-consts-defaults.patch
+	@echo make link-uploaded
+
+link-uploaded:
+	@ln -s ../storage/app/public/uploaded public/uploaded
+	@echo make patch-post-request
+
+patch-post-request:
+	@patch app/Http/Requests/CreatePost.php patches/20200718175428-app-http-requests-create-post.patch
+	@echo make patch-post-controller
+
+patch-post-controller:
+	@patch app/Http/Controllers/PostController.php patches/20200718175642-app-http-controllers-post-controller.patch
+	@echo make patch-index-view-image
+
+patch-index-view-image:
+	@patch resources/views/index.blade.php patches/20200718180241-resources-views-index.patch
+	@echo CONGRATS ON v0.0.5
+
+install-intervention-image:
+	@php composer.phar require intervention/image
+	@php artisan vendor:publish --provider="Intervention\Image\ImageServiceProviderLaravelRecent"

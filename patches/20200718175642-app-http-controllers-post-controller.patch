@@ -1,0 +1,6 @@
+11a12
+>         $uploaded = $request->file('image')->store(config('consts.defaults.storage_uploaded_image_path'));
+15c16
+<         $post->setAttribute('image', '');
+---
+>         $post->setAttribute('image', basename($uploaded));

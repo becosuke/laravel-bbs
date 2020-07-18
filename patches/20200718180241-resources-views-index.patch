@@ -1,0 +1,17 @@
+36c36
+<                         <form action="{{ route('post.create') }}" method="post">
+---
+>                         <form action="{{ route('post.create') }}" method="post" enctype="multipart/form-data">
+41a42,45
+>                             <div class="form-group">
+>                                 <label for="image">画像ファイル</label>
+>                                 <input type="file" class="form-control-file" name="image" id="image">
+>                             </div>
+55c59,63
+<                                 <img class="card-img-top" data-src="{{ asset('/img/thumbnail.svg') }}" alt="Thumbnail [100%x225]" style="height: 225px; width: 100%; display: block;" src="{{ asset('/img/thumbnail.svg') }}" data-holder-rendered="true">
+---
+>                                 @empty($post->image)
+>                                     <img class="card-img-top" data-src="{{ asset('/img/thumbnail.svg') }}" alt="Thumbnail [100%x225]" style="height: 225px; width: 100%; display: block;" src="{{ asset('/img/thumbnail.svg') }}" data-holder-rendered="true">
+>                                 @else
+>                                     <img class="card-img-top" data-src="{{ asset(config('consts.defaults.public_uploaded_image_path') . $post->image) }}" alt="Uploaded Image" style="object-fit: none; object-position: center; height: 225px; max-width: 100%; display: block;" src="{{ asset(config('consts.defaults.public_uploaded_image_path') . $post->image) }}" data-holder-rendered="true">
+>                                 @endempty

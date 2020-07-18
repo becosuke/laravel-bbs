@@ -1,0 +1,2 @@
+27a28
+>             'image' => 'required|file|image|mimes:jpeg,png',
