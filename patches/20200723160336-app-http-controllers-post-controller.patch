@@ -1,0 +1,16 @@
+6a7,8
+> use Illuminate\Support\Facades\Storage;
+> use Intervention\Image\Facades\Image;
+12a15,26
+>         $image = Image::make(Storage::get($uploaded));
+>         $smaller = function ($one, $two) {
+>             return $one < $two ? $one : $two;
+>         };
+>         $image->crop(
+>             $smaller($image->getWidth(), config('consts.defaults.image_width')),
+>             $smaller($image->getHeight(), config('consts.defaults.image_height'))
+>         );
+>         Storage::put(
+>             config('consts.defaults.storage_resized_image_path') . basename($uploaded),
+>             $image->encode()
+>         );

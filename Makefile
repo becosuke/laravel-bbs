@@ -173,6 +173,27 @@ patch-index-view-image:
 	@patch resources/views/index.blade.php patches/20200718180241-resources-views-index.patch
 	@echo CONGRATS ON v0.0.5
 
+v0.0.5:
+	@echo make install-intervention-image
+
 install-intervention-image:
 	@php composer.phar require intervention/image
 	@php artisan vendor:publish --provider="Intervention\Image\ImageServiceProviderLaravelRecent"
+	@echo make patch-consts-config-resized
+
+patch-consts-config-resized:
+	@patch config/consts/defaults.php patches/20200723160126-config-consts-default.patch
+	@echo make link-resized
+
+link-resized:
+	@mkdir storage/app/public/resized
+	@ln -s ../storage/app/public/resized public/resized
+	@echo make patch-post-controller-resized
+
+patch-post-controller-resized:
+	@patch app/Http/Controllers/PostController.php patches/20200723160336-app-http-controllers-post-controller.patch
+	@echo make patch-index-view-resized
+
+patch-index-view-resized:
+	@patch resources/views/index.blade.php patches/20200723160447-resources-views-index.patch
+	@echo CONGRATS ON v0.0.6

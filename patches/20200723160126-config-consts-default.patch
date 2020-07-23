@@ -1,0 +1,7 @@
+4a5,6
+>     'image_height' => 225,
+>     'image_width' => 400, // 225 * 16 / 9
+5a8
+>     'storage_resized_image_path' => '/public/resized/',
+6a10
+>     'public_resized_image_path' => '/resized/',
